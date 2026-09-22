@@ -1,0 +1,19 @@
+[1/4] generating clean corpus ...
+  generated 650 clean utterances in 24.9s
+[2/4] building codec-degraded eval sets ...
+  built 900 degraded eval files (6 channels) in 59.7s
+[3/4] building codec-augmented training copies ...
+  built 800 codec-augmented training files in 42.5s
+[4/4] extracting LFCC features ...
+  train            X=(400, 60, 240) V=(400, 240) n_bona=200 n_spoof=200 (4.3s)
+  dev              X=(100, 60, 240) V=(100, 240) n_bona=50 n_spoof=50 (1.0s)
+  eval             X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.1s)
+  train_aug0       X=(400, 60, 240) V=(400, 240) n_bona=200 n_spoof=200 (4.5s)
+  train_aug1       X=(400, 60, 240) V=(400, 240) n_bona=200 n_spoof=200 (4.1s)
+  eval_g711_ulaw   X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.2s)
+  eval_g726_32k    X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.6s)
+  eval_g726_16k    X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.7s)
+  eval_opus_12k    X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.2s)
+  eval_opus_24k    X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.3s)
+  eval_mp3_32k     X=(150, 60, 240) V=(150, 240) n_bona=75 n_spoof=75 (1.1s)
+done.

@@ -1,0 +1,75 @@
+device: cpu   torch 2.14.0+cu130
+train clean (400, 60, 240)   train augmented (1200, 60, 240)   dev (100, 60, 240)
+
+=== Model A: LFCC-GMM (ASVspoof official baseline) ===
+  trained in 2.4s
+  GMM_clean_trained clean EER= 10.67%  AUC=0.9746  BalAcc=0.8933  APCER=0.107  BPCER=0.107
+  GMM_clean_trained g711_ulaw EER= 34.00%  AUC=0.7714  BalAcc=0.6600  APCER=0.347  BPCER=0.333
+  GMM_clean_trained g726_32k EER= 45.33%  AUC=0.6092  BalAcc=0.5467  APCER=0.453  BPCER=0.453
+  GMM_clean_trained g726_16k EER= 42.00%  AUC=0.6222  BalAcc=0.5800  APCER=0.427  BPCER=0.413
+  GMM_clean_trained opus_12k EER= 27.33%  AUC=0.8023  BalAcc=0.7267  APCER=0.267  BPCER=0.280
+  GMM_clean_trained opus_24k EER= 22.67%  AUC=0.8866  BalAcc=0.7733  APCER=0.227  BPCER=0.227
+  GMM_clean_trained mp3_32k EER= 38.00%  AUC=0.6716  BalAcc=0.6200  APCER=0.387  BPCER=0.373
+  GMM_clean_trained POOLED EER= 36.22%  AUC=0.6762  BalAcc=0.6378  APCER=0.362  BPCER=0.362
+
+--- LFCC-GMM trained WITH codec augmentation ---
+  trained in 3.3s
+  GMM_aug_trained clean  EER= 19.33%  AUC=0.9296  BalAcc=0.8067  APCER=0.187  BPCER=0.200
+  GMM_aug_trained g711_ulaw EER= 30.67%  AUC=0.7358  BalAcc=0.6933  APCER=0.307  BPCER=0.307
+  GMM_aug_trained g726_32k EER= 40.00%  AUC=0.6592  BalAcc=0.6000  APCER=0.400  BPCER=0.400
+  GMM_aug_trained g726_16k EER= 36.00%  AUC=0.6967  BalAcc=0.6400  APCER=0.360  BPCER=0.360
+  GMM_aug_trained opus_12k EER= 30.67%  AUC=0.7744  BalAcc=0.6933  APCER=0.293  BPCER=0.320
+  GMM_aug_trained opus_24k EER= 22.67%  AUC=0.8580  BalAcc=0.7733  APCER=0.240  BPCER=0.213
+  GMM_aug_trained mp3_32k EER= 46.67%  AUC=0.6005  BalAcc=0.5333  APCER=0.467  BPCER=0.467
+  GMM_aug_trained POOLED EER= 41.44%  AUC=0.6125  BalAcc=0.5856  APCER=0.413  BPCER=0.416
+
+=== Model B: ResNet + OC-Softmax (base paper's best system) ===
+  trainable parameters: 323,888
+
+--- B1: trained on CLEAN audio ---
+    epoch   0  loss=4.9698  dev_EER=8.00%  dev_AUC=0.9556
+    epoch   5  loss=0.7896  dev_EER=26.00%  dev_AUC=0.8224
+    epoch  10  loss=0.0897  dev_EER=5.00%  dev_AUC=0.9000
+    epoch  15  loss=0.0852  dev_EER=0.00%  dev_AUC=1.0000
+    epoch  20  loss=0.0973  dev_EER=0.00%  dev_AUC=1.0000
+    epoch  25  loss=0.0680  dev_EER=0.00%  dev_AUC=1.0000
+    epoch  30  loss=0.0685  dev_EER=0.00%  dev_AUC=1.0000
+    epoch  34  loss=0.0666  dev_EER=0.00%  dev_AUC=1.0000
+  trained in 239.4s (best epoch 34)
+  OCResNet_clean_trained clean EER=  0.00%  AUC=1.0000  BalAcc=1.0000  APCER=0.000  BPCER=0.000
+  OCResNet_clean_trained g711_ulaw EER= 48.67%  AUC=0.5356  BalAcc=0.5133  APCER=0.480  BPCER=0.493
+  OCResNet_clean_trained g726_32k EER= 46.67%  AUC=0.5479  BalAcc=0.5333  APCER=0.467  BPCER=0.467
+  OCResNet_clean_trained g726_16k EER= 45.33%  AUC=0.6091  BalAcc=0.5467  APCER=0.440  BPCER=0.467
+  OCResNet_clean_trained opus_12k EER= 45.33%  AUC=0.6092  BalAcc=0.5467  APCER=0.453  BPCER=0.453
+  OCResNet_clean_trained opus_24k EER=  3.33%  AUC=0.9781  BalAcc=0.9667  APCER=0.053  BPCER=0.013
+  OCResNet_clean_trained mp3_32k EER= 34.67%  AUC=0.6608  BalAcc=0.6533  APCER=0.333  BPCER=0.360
+  OCResNet_clean_trained POOLED EER= 42.89%  AUC=0.5962  BalAcc=0.5711  APCER=0.429  BPCER=0.429
+
+--- B2: trained WITH codec augmentation (our proposed fix) ---
+    epoch   0  loss=4.9120  dev_EER=12.00%  dev_AUC=0.9636
+    epoch   5  loss=0.3514  dev_EER=2.00%  dev_AUC=0.9996
+    epoch  10  loss=0.1272  dev_EER=2.00%  dev_AUC=0.9972
+    epoch  15  loss=0.1084  dev_EER=4.00%  dev_AUC=0.9980
+    epoch  20  loss=0.0666  dev_EER=3.00%  dev_AUC=0.9992
+    epoch  25  loss=0.0657  dev_EER=2.00%  dev_AUC=0.9984
+    epoch  30  loss=0.0652  dev_EER=2.00%  dev_AUC=0.9996
+    epoch  34  loss=0.0929  dev_EER=2.00%  dev_AUC=0.9996
+  trained in 681.7s (best epoch 19)
+  OCResNet_aug_trained clean EER=  4.00%  AUC=0.9972  BalAcc=0.9600  APCER=0.040  BPCER=0.040
+  OCResNet_aug_trained g711_ulaw EER= 17.33%  AUC=0.9104  BalAcc=0.8267  APCER=0.173  BPCER=0.173
+  OCResNet_aug_trained g726_32k EER= 16.00%  AUC=0.9150  BalAcc=0.8400  APCER=0.160  BPCER=0.160
+  OCResNet_aug_trained g726_16k EER= 20.00%  AUC=0.9042  BalAcc=0.8000  APCER=0.200  BPCER=0.200
+  OCResNet_aug_trained opus_12k EER= 17.33%  AUC=0.8619  BalAcc=0.8267  APCER=0.173  BPCER=0.173
+  OCResNet_aug_trained opus_24k EER=  8.00%  AUC=0.9819  BalAcc=0.9200  APCER=0.080  BPCER=0.080
+  OCResNet_aug_trained mp3_32k EER= 19.33%  AUC=0.8942  BalAcc=0.8067  APCER=0.200  BPCER=0.187
+  OCResNet_aug_trained POOLED EER= 16.67%  AUC=0.9057  BalAcc=0.8333  APCER=0.167  BPCER=0.167
+
+========================================================================
+HEADLINE RESULTS (EER %, lower is better)
+========================================================================
+System                     Clean   Telephony  Degradation      +Aug  Recovered
+LFCC-GMM                  10.67%      36.22%      +25.56    41.44%     -5.22
+ResNet+OC-Softmax          0.00%      42.89%      +42.89    16.67%    +26.22
+========================================================================
+
+saved results.json and model checkpoints to /home/claude/idp_project/results
