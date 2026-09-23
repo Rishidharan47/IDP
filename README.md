@@ -1,4 +1,4 @@
-# AI Voice-Scam & Deepfake Call Detector — Phase 1
+# AI Voice-Scam & Deepfake Call Detector — Phase 
 
 Codec-robust detection of synthetic speech under live telephony conditions.
 
